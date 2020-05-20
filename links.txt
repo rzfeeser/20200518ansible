@@ -1,0 +1,9 @@
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+
+https://github.com/ansible/ansible/blob/stable-2.9/examples/ansible.cfg
+
+https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html
+
+https://docs.ansible.com/ansible/latest/modules/replace_module.html
+
+https://yaml.org/spec/1.2/spec.html
