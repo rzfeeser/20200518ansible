@@ -1,0 +1,16 @@
+---
+ - name: Learning about blocks
+   hosts: planetexpress
+
+   tasks:
+    - name: This is MY first block!
+      block: 
+        
+       - name: first shell task
+         shell: "echo 'My single task ran' > example.txt"
+       
+       - name: my second shell task
+         shell: "echo 'My second task ran' >> example.txt"
+       
+       - name: my third shell task
+         shell: "echo 'My third task ran' >> example.txt"

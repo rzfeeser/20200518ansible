@@ -1,0 +1,48 @@
+---
+- name: My Arista Playbook
+  hosts: switches  # this is a group name defined in the inventory
+  gather_facts: false
+
+  vars:
+          herethere: "absent"  # the state of the banner
+
+  # list of files we want to import to our code
+  vars_files:
+    - ~/switch.creds
+
+  tasks:
+  # change the login banner
+  # notice that the state is now a variable reference "herethere"
+  - name: configure the login banner
+    eos_banner:
+      banner: login
+      text: |
+        Congrats! You set a banner using an Ansible EOS module.
+        Notice how YAML formatting lets us do multi-line
+        strings
+      state: "{{ herethere }}"    # this var needs cast 'absent' or 'present'
+    register: jsonresult
+
+  - name: Get visability on variable jsonresult
+    debug:
+      msg: "{{ jsonresult }}"
+
+  - name: Enable eAPI with no HTTP, HTTPS at port 9443, local HTTP at port 80, and socket enabled
+    eos_eapi:
+      state: started  # begin the eos api
+      http: false     # do not allow unecrypted http
+      https_port: 9443  # this is the port on which https will operate
+      local_http: yes
+      local_http_port: 80
+      socket: yes
+    register: jsonresulteapi
+
+  - name: look at returned json
+    debug:
+      msg: "{{ jsonresulteapi.ansible_facts.eos_eapi_urls.Management1[0] }}"
+
+  - name: place our information within a file on the local machine
+    template:
+      src: "UserInformation.txt.j2"   # this is our jinja template SOURCE sub dir templates/ is assumed
+      dest: "~/UserInformation{{ inventory_hostname }}.txt"  # this is our finished file location
+      # delegate_to: localhost

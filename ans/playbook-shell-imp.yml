@@ -1,0 +1,30 @@
+---
+- name: A simple file playbook
+  hosts: planetexpress
+  gather_facts: yes  # this defines a BUNCH of vars, including ansible_env
+
+  tasks:
+   - name: make a directory
+     file:
+       path: ~/output/
+       state: directory
+
+   - name: display a var on the screen (skipped if not -v)
+     debug:
+       var: ansible_env.HOME
+       verbosity: 1  # one -v flag required for this debug to run
+
+   - name: trash the old copy of path.txt if it exists
+     file:
+       path: ~/output/path.txt
+       state: absent 
+
+   - name: "Ensure the value of ansible_env.HOME is within ~/output/path.txt"
+     lineinfile:
+       path: ~/output/path.txt
+       line: "\n{{ ansible_env.HOME }}\n"  # recalling the value of this var collected by gather_facts
+       create: yes      # create the file if it does not exist
+       state: present   # we want this line to be present
+
+       #   - name: use shell module with wildcarding
+       #     shell: echo $HOME > ~/output/path.txt

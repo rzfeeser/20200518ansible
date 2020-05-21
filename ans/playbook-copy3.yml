@@ -1,0 +1,10 @@
+---
+- name: Copy gathered facts to a local file
+  hosts: planetexpress:!farnsworth
+  # gather_facts: yes   # default is yes, no reason to enable
+
+  tasks:
+          - name: demo writing out a copy of gathered facts
+            copy:
+              content: "{{ ansible_facts }}"
+              dest: ~/gathered_facts.txt    # this is dest on our 3 remote hosts

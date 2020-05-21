@@ -1,0 +1,39 @@
+[
+  {
+    "name": "A simple file playbook",
+    "hosts": "planetexpress",
+    "gather_facts": "yes",
+    "tasks": [
+      {
+        "name": "make a directory",
+        "file": {
+          "path": "~/output/",
+          "state": "directory"
+        }
+      },
+      {
+        "name": "display a var on the screen (skipped if not -v)",
+        "debug": {
+          "var": "ansible_env.HOME",
+          "verbosity": 1
+        }
+      },
+      {
+        "name": "trash the old copy of path.txt if it exists",
+        "file": {
+          "path": "~/output/path.txt",
+          "state": "absent"
+        }
+      },
+      {
+        "name": "Ensure the value of ansible_env.HOME is within ~/output/path.txt",
+        "lineinfile": {
+          "path": "~/output/path.txt",
+          "line": "\n{{ ansible_env.HOME }}\n",
+          "create": "yes",
+          "state": "present"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+---
+- name: Copying files from controller to hosts
+  hosts: planetexpress
+
+  vars:
+     nistexample: "some other kind of lemonade"
+
+  tasks:
+
+    - name: Copy Fry's resume to hosts
+      copy:
+        src: ~/ans/files/fry.txt   # on the controller
+        dest: ~/fry.txt      # home directory on hosts
+
+    - name: print an example var to the screen
+      debug:
+        var: nistexample
+

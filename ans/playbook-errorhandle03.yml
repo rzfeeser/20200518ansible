@@ -1,0 +1,24 @@
+---
+ - name: Learning about blocks
+   hosts: planetexpress
+
+   tasks:
+    - name: This is MY first block!
+      block: 
+        
+       - name: first shell task
+         shell: "echo 'My single task ran' > example.txt"
+       
+       - name: my second shell task
+         shell: "echo 'My second task ran' >> example.txt"
+       
+       - name: FORCE A FAIL
+         shell: "/bin/false"
+
+      rescue:
+       - name: This only runs if a FAIL occurs in the block
+         shell: "echo 'My rescue code ran. Maybe it undoes whatever the block tried to do' >> example.txt"
+      
+      always:
+       - name: This always runs (think send email or write to log) 
+         shell: "echo 'This always runs. Maybe it is a commit, or an entry in a log' >> example.txt"

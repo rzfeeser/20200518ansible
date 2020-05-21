@@ -1,0 +1,33 @@
+---
+- name: Network Playbook to gather facts
+  hosts: all
+  gather_facts: no
+
+  # these vars can be mapped other places
+  # but need to be mapped for ansible to
+  # connect to Arista switches
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: eos
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_user: admin
+    ansible_ssh_pass: alta3
+
+  tasks:
+  - name: Gather EOS facts
+    eos_facts:
+      gather_subset: all
+
+  - name: print out facts
+    debug:
+            var: ansible_facts
+
+  - name: configure the login banner
+    eos_banner:
+      banner: login
+      text: |
+        Congrats! You set a banner using an Ansible EOS module.
+        Notice how YAML formatting lets us do multi-line
+        strings
+      state: "{{ herethere }}"
