@@ -7,3 +7,7 @@ https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html
 https://docs.ansible.com/ansible/latest/modules/replace_module.html
 
 https://yaml.org/spec/1.2/spec.html
+
+https://docs.ansible.com/ansible/latest/modules/list_of_windows_modules.html
+
+https://desktop.github.com/
