@@ -1,0 +1,25 @@
+- name: Windows PowerShell to Windows SQL Server
+  hosts: windowsbox
+  gather_facts: false
+  
+  ## code your SQL commands up as vars for easy(ier) applciation
+  ## maybe it makes sense to put these all in a vars_file (so you can share!)
+  
+  vars:
+    select_query: |
+      SELECT * FROM sys.tables
+      go
+
+  tasks:
+    # You can rock windows with win_shell
+    # this issues through windows powershell by default
+    - name: Run select
+      win_shell: |
+        Invoke-Sqlcmd -Query {{ select_query | quote }} | ConvertTo-Json
+      register: select_result
+      # last command is to save the JSON returned by the SQL server
+
+    # display the SQL results
+    - name: Display results from query
+      debug:
+        var: select_result.stdout
