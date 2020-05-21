@@ -6,8 +6,25 @@ https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html
 
 https://docs.ansible.com/ansible/latest/modules/replace_module.html
 
+yaml spec
 https://yaml.org/spec/1.2/spec.html
 
+Windows modules
 https://docs.ansible.com/ansible/latest/modules/list_of_windows_modules.html
 
+Github desktop
 https://desktop.github.com/
+
+VM platform for windows
+https://www.virtualbox.org/
+
+Linux Ubuntu ISO download
+https://ubuntu.com/#download
+
+example ansible.cfg
+https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg
+
+Windows listener (not for production but for test):
+https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
+
+
