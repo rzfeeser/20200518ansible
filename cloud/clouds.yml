@@ -1,0 +1,12 @@
+---
+clouds:
+  ansible-playground:
+    auth:
+      auth_url: http://10.2.201.20:5000/v3
+      project_domain_name: Default
+      user_domain_name: Default
+      project_name: 'admin'
+      username: 'admin'
+      password: '2e3a3f3cb49e4cab'
+    identity_api_version: 3
+    region_name: RegionOne

@@ -1,0 +1,14 @@
+---
+- name: Openstack playbook
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: grab the flavors in the OS cloud
+    os_flavor_info:
+      cloud: ansible-playground
+    register: result
+
+  - name: See our flavors
+    debug:
+      var: result

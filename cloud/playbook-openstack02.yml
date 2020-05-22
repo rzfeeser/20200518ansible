@@ -1,0 +1,44 @@
+---
+- name: Launch a cloud instance
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+
+    student_number: "6560"
+    student_name: instrzach
+    public_key:  "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
+
+  tasks:
+
+    - name: create keypair
+      os_keypair:
+        cloud: "ansible-playground"
+        state: present
+        name: "ansible-key-{{ student_name }}"
+        public_key: "{{ public_key }}"
+
+
+    - name: launch nodes
+      os_server:
+        cloud: "ansible-playground"
+        state: present
+        name:  "ansible-{{ student_number }}"
+        image: "cirros"
+        flavor: "m1.tiny"
+        key_name: "ansible-key-{{ student_name }}"
+        meta:
+           type: "ansible-{{ student_number }}"
+           class: "ansible"
+           student_name: "{{ student_name }}"
+           student_number: "{{ student_number }}"
+           bootstrapped: "false"
+           configured: "false"
+           hostname: "ansible-{{ student_number }}"
+        auto_ip: no
+        wait: yes
+        timeout: 600
+      register: instances
+
+    - debug:
+        msg: "{{ instances }}"
