@@ -1,0 +1,31 @@
+---
+- name: Find files and print out
+  hosts: localhost
+
+  tasks:
+  - name: Recursively find /home/student/ans files matching playbook-*
+    find:
+      paths: /home/student/ans
+      patterns: 'playbook-*'
+      recurse: yes
+    register: filesfound
+
+    #- name: display the results of our search
+    # debug:
+    #  var: filesfound
+
+  - name: ensure the output file is created
+    file:
+      name: /home/student/fang-output-file.yaml
+      state: touch
+
+  - name: write out a proper yaml file
+    lineinfile:
+      path: /home/student/fang-output-file.yaml
+      line: "---\nfilesfound:"
+
+  - name: write out the list of files, one file on each line, within out output file
+    lineinfile:
+      path: /home/student/fang-output-file.txt
+      line: "  - {{ item.path }}"
+    loop: "{{ filesfound.files }}"
